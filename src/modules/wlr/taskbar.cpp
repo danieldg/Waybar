@@ -257,7 +257,7 @@ Task::Task(const waybar::Bar &bar, const Json::Value &config, Taskbar *tbar,
     if (config_["on-click"].isString() || config_["on-click-middle"].isString()
             || config_["on-click-right"].isString()) {
         button_.add_events(Gdk::BUTTON_PRESS_MASK);
-        button_.signal_button_press_event().connect(
+        button_.signal_button_release_event().connect(
                 sigc::mem_fun(*this, &Task::handle_clicked), false);
     }
 }
