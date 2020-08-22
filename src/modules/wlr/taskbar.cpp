@@ -334,6 +334,8 @@ void Task::handle_app_id(const char *app_id)
 void Task::handle_output_enter(struct wl_output *output)
 {
     spdlog::debug("{} entered output {}", repr(), (void*)output);
+    if (app_id_.empty() && title_ == " ")
+	return;
 
     if (!button_visible_ && (tbar_->all_outputs() || tbar_->show_output(output))) {
         /* The task entered the output of the current bar make the button visible */
