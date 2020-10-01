@@ -486,6 +486,17 @@ void Task::update()
             text_before_.set_markup(txt);
         else
             text_before_.set_label(txt);
+        if (config_["button-width"].isInt()) {
+            int width = config_["button-width"].asInt();
+            if (config_["bar-width"].isInt() && tbar_) {
+                int bar_width = config_["bar-width"].asInt();
+                if (width * tbar_->nr_tasks() > bar_width)
+                    width = bar_width / tbar_->nr_tasks();
+            }
+            text_before_.set_width_chars(width);
+            text_before_.set_ellipsize(Pango::EllipsizeMode::ELLIPSIZE_END);
+            text_before_.set_justify(Gtk::JUSTIFY_LEFT);
+        }
         text_before_.show();
     }
     if (!format_after_.empty()) {
@@ -499,6 +510,18 @@ void Task::update()
             text_after_.set_markup(txt);
         else
             text_after_.set_label(txt);
+        if (config_["button-width"].isInt()) {
+            int width = config_["button-width"].asInt();
+            if (config_["bar-width"].isInt() && tbar_) {
+                int bar_width = config_["bar-width"].asInt();
+		int tasks = tbar_->nr_tasks();
+                if (width * tasks > bar_width)
+                    width = bar_width / tasks;
+            }
+            text_after_.set_width_chars(width);
+            text_after_.set_ellipsize(Pango::EllipsizeMode::ELLIPSIZE_END);
+            text_after_.set_justify(Gtk::JUSTIFY_LEFT);
+        }
         text_after_.show();
     }
 
@@ -724,6 +747,11 @@ void Taskbar::remove_task(uint32_t id)
     }
 
     tasks_.erase(it);
+}
+
+uint32_t Taskbar::nr_tasks() const
+{
+    return tasks_.size();
 }
 
 bool Taskbar::show_output(struct wl_output *output) const

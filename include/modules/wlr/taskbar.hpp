@@ -151,6 +151,8 @@ class Taskbar : public waybar::AModule
     void remove_button(Gtk::Button &);
     void remove_task(uint32_t);
 
+    uint32_t nr_tasks() const;
+
     bool show_output(struct wl_output *) const;
     bool all_outputs() const;
 
