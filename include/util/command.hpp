@@ -4,6 +4,7 @@
 #include <spdlog/spdlog.h>
 #include <sys/wait.h>
 #include <unistd.h>
+#include <fcntl.h>
 
 #include <array>
 
@@ -61,7 +62,7 @@ inline int close(FILE* fp, pid_t pid) {
 inline FILE* open(const std::string& cmd, int& pid) {
   if (cmd == "") return nullptr;
   int fd[2];
-  pipe(fd);
+  pipe2(fd, O_CLOEXEC);
 
   pid_t child_pid = fork();
 
