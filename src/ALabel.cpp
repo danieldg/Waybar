@@ -28,6 +28,8 @@ ALabel::ALabel(const Json::Value& config, const std::string& name, const std::st
     label_.set_single_line_mode(true);
   }
 
+  label_.set_yalign(1);
+
   if (config_["rotate"].isUInt()) {
     label_.set_angle(config["rotate"].asUInt());
   }
