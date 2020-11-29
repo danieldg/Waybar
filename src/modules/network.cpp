@@ -19,8 +19,8 @@ constexpr std::string_view BANDWIDTH_CATEGORY = "IpExt";
 constexpr std::string_view BANDWIDTH_DOWN_TOTAL_KEY = "InOctets";
 constexpr std::string_view BANDWIDTH_UP_TOTAL_KEY = "OutOctets";
 
-std::ifstream                     netstat(NETSTAT_FILE);
 std::optional<unsigned long long> read_netstat(std::string_view category, std::string_view key) {
+  std::ifstream netstat(NETSTAT_FILE);
   if (!netstat) {
     spdlog::warn("Failed to open netstat file {}", NETSTAT_FILE);
     return {};

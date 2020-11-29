@@ -46,7 +46,7 @@ Item::Item(const std::string& bn, const std::string& op, const Json::Value& conf
   }
   event_box.add(image);
   event_box.add_events(Gdk::BUTTON_PRESS_MASK);
-  event_box.signal_button_press_event().connect(sigc::mem_fun(*this, &Item::handleClick));
+  event_box.signal_button_release_event().connect(sigc::mem_fun(*this, &Item::handleClick));
 
   cancellable_ = Gio::Cancellable::create();
 
